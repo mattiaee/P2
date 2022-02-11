@@ -4,7 +4,6 @@
 
 #include<list>
 #include "chart.h"
-#include "exception.h"
 
 class PieChart : public Chart {
 public:
