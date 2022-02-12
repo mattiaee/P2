@@ -1,15 +1,6 @@
 #include "barchart.h"
 
-BarChart::BarChart(Model* m, std::string n) : Chart(m,n){
-    //inizializzato a 5 righe e 3 colonne da esempio
-    /*getModel()->setColumnCount(3);
-    getModel()->setRowCount(5);
-    //mette la prima label "first-series"
-    getModel()->setColLabel(0, "first-series");
-    getModel()->setColLabel(1, "second-series");
-    getModel()->setColLabel(2, "third-series");
-    getModel()->setRowLabel(0, "first set");*/
-}
+BarChart::BarChart(Model* m, std::string n) : Chart(m,n){}
 void BarChart::draw(QChart*& drawer) const {
     QBarSeries *series = new QBarSeries;
     for(auto it=getModel()->getData().begin();it!=getModel()->getData().end();++it){

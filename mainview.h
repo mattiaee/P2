@@ -41,9 +41,6 @@ private:
     void loadFile(const QString &fileName);
 
     void addChart();
-    /*void newLineChart();
-    void newPieChart();
-    void newBarChart();*/
     void clearView();
 public:
     MainView(QWidget* parent =0);

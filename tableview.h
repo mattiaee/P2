@@ -15,7 +15,6 @@ private:
     QTableWidget* table;
 
     void addItem(int row,int col, float val);
-    //void addHeaderItem(int row,int col, std::string label);
     void addColHeaderItem(int col, std::string label);
     void addRowHeaderItem(int col, std::string label);
 
@@ -30,7 +29,6 @@ public slots:
     void removeRow();
 
     void changeValue(int row, int col, float v);
-    //void changeText(int row, int col, std::string t);
     void changeColText(int col, std::string t);
     void changeRowText(int row, std::string t);
 };

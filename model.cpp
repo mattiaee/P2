@@ -37,7 +37,7 @@ void Model::insertColumn() {
 void Model::removeColumn() {if(col_count>0){data.pop_back();col_count--;}};
 
 void Model::insertRow() {
-    for(int i=0;i<col_count;i++) data.at(i)->addValue(float(0));//da valutare un metodo in dataset addValue e ridefinire l'operatore []
+    for(int i=0;i<col_count;i++) data.at(i)->addValue(float(0));
     labels.push_back("");
     row_count++;
 };

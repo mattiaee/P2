@@ -22,52 +22,7 @@ void MainView::addChart() {
     if(dynamic_cast<LineChart*>(chart)) tableView->hideColLabel();
     gridLayout->addWidget(tableView, 1, 0);
     addChartControls();
-    /*QPushButton* create = new QPushButton("Create Chart");
-    connect(create, &QPushButton::clicked, this, [=] { chartView = new ChartView(chart); gridLayout->addWidget(chartView, 1, 1); });
-    gridLayout->addWidget(create, 2, 0);
-    if(chart){
-        QLineEdit* chartName = new QLineEdit(QString::fromStdString(chart->getName()));
-        connect(chartName, &QLineEdit::textChanged, this, [=] { chart->setName(chartName->text().toStdString());});
-        gridLayout->addWidget(chartName, 2, 1);
-    }*/
 }
-/*
-void MainView::newLineChart() {
-    //delete, pulizia pagina
-    model = new Model(5,2);
-    chart = new LineChart(model,"line chart");
-    tableView = new TableView(model);
-    gridLayout->addWidget(tableView, 1, 0);
-    addTableControls();
-    QPushButton* create = new QPushButton("Create Chart");
-    connect(create, &QPushButton::clicked, this, [=] { chartView = new ChartView(chart); gridLayout->addWidget(chartView, 1, 1); });
-    gridLayout->addWidget(create, 2, 0);
-}
-
-void MainView::newPieChart() {
-    //delete, pulizia pagina
-    model = new Model(5,1);
-    chart = new PieChart(model,"pie chart");
-    tableView = new TableView(model);
-    gridLayout->addWidget(tableView, 1, 0);
-    addTableControls();
-    QPushButton* create = new QPushButton("Create Chart");
-    connect(create, &QPushButton::clicked, this, [=] { chartView = new ChartView(chart); gridLayout->addWidget(chartView, 1, 1); });
-    gridLayout->addWidget(create, 2, 0);
-}
-
-void MainView::newBarChart() {
-    //delete, pulizia pagina
-    model = new Model(5,3);
-    chart = new BarChart(model,"bar chart");
-    tableView = new TableView(model);
-    gridLayout->addWidget(tableView, 1, 0);
-    addTableControls();
-    QPushButton* create = new QPushButton("Create Chart");
-    connect(create, &QPushButton::clicked, this, [=] { chartView = new ChartView(chart); gridLayout->addWidget(chartView, 1, 1); });
-    gridLayout->addWidget(create, 2, 0);
-}
-*/
 void MainView::openFile() {
     const QString fileName = QFileDialog::getOpenFileName(this, "Scegli file dati", "", "*.txt");
     if (!fileName.isEmpty())
@@ -95,17 +50,17 @@ void MainView::loadFile(const QString &fileName) {
     QStringList modelS;
     line = stream.readLine();
     if (!line.isEmpty())
-        modelS = line.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+        modelS = line.split(QLatin1Char(';'), QString::SkipEmptyParts);//QString in produzione
     //row labels, quarta riga
     QStringList rowLabels;
     line = stream.readLine();
     if (!line.isEmpty())
-        rowLabels = line.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+        rowLabels = line.split(QLatin1Char(';'), QString::SkipEmptyParts);//QString in produzione
     //row labels, quinta riga
     QStringList colLabels;
     line = stream.readLine();
     if (!line.isEmpty())
-        colLabels = line.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+        colLabels = line.split(QLatin1Char(';'), QString::SkipEmptyParts);//QString in produzione
     //creo modello
     model = new Model(modelS.at(0).toInt(),modelS.at(1).toInt());
     if(type == "Bar") chart = new BarChart(model, name.toStdString());
@@ -117,7 +72,7 @@ void MainView::loadFile(const QString &fileName) {
     while (!stream.atEnd()) {
         line = stream.readLine();
         if (!line.isEmpty()) {
-            dataset = line.split(QLatin1Char(';'), Qt::SkipEmptyParts);
+            dataset = line.split(QLatin1Char(';'), Qt::SkipEmptyParts);//QString in produzione
             for(int col = 0; col<dataset.length();col++) {
                 if(row==0)
                     model->getData().at(col)->setLabel(colLabels.value(col).toStdString());
@@ -130,7 +85,6 @@ void MainView::loadFile(const QString &fileName) {
     };
     file.close();
     addChart();
-    //statusBar()->showMessage(tr("Loaded %1").arg(fileName), 2000);
 }
 
 void MainView::saveFile() {
@@ -163,13 +117,13 @@ void MainView::saveFile() {
     for (int row = 0; row < model->rowCount(); ++row) {
         QStringList dataset;
         for (int col = 0; col < model->columnCount(); ++col)
-            dataset.append(QString::fromStdString(std::to_string(model->getData(row,col))));
+            //dataset.append(QString::fromStdString(std::to_string(model->getData(row,col))));
+            dataset.append(QString::number(model->getData(row,col)));
 
         stream << dataset.join(';') << "\n";
     }
 
     file.close();
-    //statusBar()->showMessage(tr("Saved %1").arg(fileName), 2000);
 }
 
 void MainView::clearView() {

@@ -14,7 +14,6 @@ SOURCES += \
     chart.cpp \
     chartview.cpp \
     dataset.cpp \
-    exception.cpp \
     headeritem.cpp \
     item.cpp \
     linechart.cpp \
@@ -29,7 +28,6 @@ HEADERS += \
     chart.h \
     chartview.h \
     dataset.h \
-    exception.h \
     headeritem.h \
     item.h \
     linechart.h \
